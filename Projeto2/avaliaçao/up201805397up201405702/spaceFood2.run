@@ -1,0 +1,19 @@
+print {1..36}: "";
+
+model spaceFood2.mod;
+data spaceFood2.dat;
+option solver gurobi;
+solve;
+display profit;
+display {t in 1..month, f in FOOD} (make[t, f], invt[t, f], sum{p in PLANET} transportOut[t, p, f]);
+display transportIn, planetInvt, sell;
+display sell;
+display {t in 1..month, p in PLANET} (sum {f in FOOD} transportOut[t, p, f], trans[t, p]);
+
+display profit > solutionQuestion2;
+display {t in 1..month, f in FOOD} (make[t, f], invt[t, f], sum{p in PLANET} transportOut[t, p, f]) >> solutionQuestion2;
+display transportIn, planetInvt, sell >> solutionQuestion2;
+display sell >> solutionQuestion2;
+display {t in 1..month, p in PLANET} (sum {f in FOOD} transportOut[t, p, f], trans[t, p]) >> solutionQuestion2;
+
+reset;
